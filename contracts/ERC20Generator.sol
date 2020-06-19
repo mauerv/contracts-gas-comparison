@@ -2,17 +2,21 @@
  *Submitted for verification at Etherscan.io on 2020-04-26
  */
 pragma solidity ^0.6.9;
+
 contract Context {
     constructor() internal {}
+
     function _msgSender() internal virtual view returns (address payable) {
         return msg.sender;
     }
+
     function _msgData() internal virtual view returns (bytes memory) {
-        this; 
+        this;
         return msg.data;
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
  */
@@ -21,10 +25,12 @@ interface IERC20 {
      * @dev Returns the amount of tokens in existence.
      */
     function totalSupply() external view returns (uint256);
+
     /**
      * @dev Returns the amount of tokens owned by `account`.
      */
     function balanceOf(address account) external view returns (uint256);
+
     /**
      * @dev Moves `amount` tokens from the caller's account to `recipient`.
      *
@@ -35,6 +41,7 @@ interface IERC20 {
     function transfer(address recipient, uint256 amount)
         external
         returns (bool);
+
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
      * allowed to spend on behalf of `owner` through {transferFrom}. This is
@@ -46,6 +53,7 @@ interface IERC20 {
         external
         view
         returns (uint256);
+
     /**
      * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
      *
@@ -61,6 +69,7 @@ interface IERC20 {
      * Emits an {Approval} event.
      */
     function approve(address spender, uint256 amount) external returns (bool);
+
     /**
      * @dev Moves `amount` tokens from `sender` to `recipient` using the
      * allowance mechanism. `amount` is then deducted from the caller's
@@ -75,6 +84,7 @@ interface IERC20 {
         address recipient,
         uint256 amount
     ) external returns (bool);
+
     /**
      * @dev Emitted when `value` tokens are moved from one account (`from`) to
      * another (`to`).
@@ -93,6 +103,7 @@ interface IERC20 {
     );
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
@@ -121,6 +132,7 @@ library SafeMath {
         require(c >= a, "SafeMath: addition overflow");
         return c;
     }
+
     /**
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
@@ -133,6 +145,7 @@ library SafeMath {
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         return sub(a, b, "SafeMath: subtraction overflow");
     }
+
     /**
      * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
      * overflow (when the result is negative).
@@ -151,6 +164,7 @@ library SafeMath {
         uint256 c = a - b;
         return c;
     }
+
     /**
      * @dev Returns the multiplication of two unsigned integers, reverting on
      * overflow.
@@ -168,6 +182,7 @@ library SafeMath {
         require(c / a == b, "SafeMath: multiplication overflow");
         return c;
     }
+
     /**
      * @dev Returns the integer division of two unsigned integers. Reverts on
      * division by zero. The result is rounded towards zero.
@@ -182,6 +197,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         return div(a, b, "SafeMath: division by zero");
     }
+
     /**
      * @dev Returns the integer division of two unsigned integers. Reverts with custom message on
      * division by zero. The result is rounded towards zero.
@@ -202,6 +218,7 @@ library SafeMath {
         uint256 c = a / b;
         return c;
     }
+
     /**
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts when dividing by zero.
@@ -216,6 +233,7 @@ library SafeMath {
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
         return mod(a, b, "SafeMath: modulo by zero");
     }
+
     /**
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts with custom message when dividing by zero.
@@ -237,6 +255,7 @@ library SafeMath {
     }
 }
 pragma solidity ^0.6.2;
+
 /**
  * @dev Collection of functions related to the address type
  */
@@ -260,6 +279,7 @@ library Address {
      */
     function isContract(address account) internal view returns (bool) {
         bytes32 codehash;
+
             bytes32 accountHash
          = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
         assembly {
@@ -267,6 +287,7 @@ library Address {
         }
         return (codehash != accountHash && codehash != 0x0);
     }
+
     /**
      * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
      * `recipient`, forwarding all available gas and reverting on errors.
@@ -296,6 +317,7 @@ library Address {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Implementation of the {IERC20} interface.
  *
@@ -329,6 +351,7 @@ contract ERC20 is Context, IERC20 {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+
     /**
      * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
      * a default value of 18.
@@ -343,12 +366,14 @@ contract ERC20 is Context, IERC20 {
         _symbol = symbol;
         _decimals = 18;
     }
+
     /**
      * @dev Returns the name of the token.
      */
     function name() public view returns (string memory) {
         return _name;
     }
+
     /**
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
@@ -356,6 +381,7 @@ contract ERC20 is Context, IERC20 {
     function symbol() public view returns (string memory) {
         return _symbol;
     }
+
     /**
      * @dev Returns the number of decimals used to get its user representation.
      * For example, if `decimals` equals `2`, a balance of `505` tokens should
@@ -372,18 +398,21 @@ contract ERC20 is Context, IERC20 {
     function decimals() public view returns (uint8) {
         return _decimals;
     }
+
     /**
      * @dev See {IERC20-totalSupply}.
      */
     function totalSupply() public override view returns (uint256) {
         return _totalSupply;
     }
+
     /**
      * @dev See {IERC20-balanceOf}.
      */
     function balanceOf(address account) public override view returns (uint256) {
         return _balances[account];
     }
+
     /**
      * @dev See {IERC20-transfer}.
      *
@@ -401,6 +430,7 @@ contract ERC20 is Context, IERC20 {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
+
     /**
      * @dev See {IERC20-allowance}.
      */
@@ -413,6 +443,7 @@ contract ERC20 is Context, IERC20 {
     {
         return _allowances[owner][spender];
     }
+
     /**
      * @dev See {IERC20-approve}.
      *
@@ -429,6 +460,7 @@ contract ERC20 is Context, IERC20 {
         _approve(_msgSender(), spender, amount);
         return true;
     }
+
     /**
      * @dev See {IERC20-transferFrom}.
      *
@@ -457,6 +489,7 @@ contract ERC20 is Context, IERC20 {
         );
         return true;
     }
+
     /**
      * @dev Atomically increases the allowance granted to `spender` by the caller.
      *
@@ -481,6 +514,7 @@ contract ERC20 is Context, IERC20 {
         );
         return true;
     }
+
     /**
      * @dev Atomically decreases the allowance granted to `spender` by the caller.
      *
@@ -510,6 +544,7 @@ contract ERC20 is Context, IERC20 {
         );
         return true;
     }
+
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.
      *
@@ -539,6 +574,7 @@ contract ERC20 is Context, IERC20 {
         _balances[recipient] = _balances[recipient].add(amount);
         emit Transfer(sender, recipient, amount);
     }
+
     /** @dev Creates `amount` tokens and assigns them to `account`, increasing
      * the total supply.
      *
@@ -555,6 +591,7 @@ contract ERC20 is Context, IERC20 {
         _balances[account] = _balances[account].add(amount);
         emit Transfer(address(0), account, amount);
     }
+
     /**
      * @dev Destroys `amount` tokens from `account`, reducing the
      * total supply.
@@ -576,6 +613,7 @@ contract ERC20 is Context, IERC20 {
         _totalSupply = _totalSupply.sub(amount);
         emit Transfer(account, address(0), amount);
     }
+
     /**
      * @dev Sets `amount` as the allowance of `spender` over the `owner`s tokens.
      *
@@ -599,6 +637,7 @@ contract ERC20 is Context, IERC20 {
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
+
     /**
      * @dev Sets {decimals} to a value other than the default one of 18.
      *
@@ -609,6 +648,7 @@ contract ERC20 is Context, IERC20 {
     function _setupDecimals(uint8 decimals_) internal {
         _decimals = decimals_;
     }
+
     /**
      * @dev Hook that is called before any transfer of tokens. This includes
      * minting and burning.
@@ -630,11 +670,13 @@ contract ERC20 is Context, IERC20 {
     ) internal virtual {}
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
  */
 abstract contract ERC20Capped is ERC20 {
     uint256 private _cap;
+
     /**
      * @dev Sets the value of the `cap`. This value is immutable, it can only be
      * set once during construction.
@@ -643,12 +685,14 @@ abstract contract ERC20Capped is ERC20 {
         require(cap > 0, "ERC20Capped: cap is 0");
         _cap = cap;
     }
+
     /**
      * @dev Returns the cap on the token's total supply.
      */
     function cap() public view returns (uint256) {
         return _cap;
     }
+
     /**
      * @dev See {ERC20-_beforeTokenTransfer}.
      *
@@ -671,6 +715,7 @@ abstract contract ERC20Capped is ERC20 {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
  * tokens and those that they have an allowance for, in a way that can be
@@ -685,6 +730,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
     function burn(uint256 amount) public virtual {
         _burn(_msgSender(), amount);
     }
+
     /**
      * @dev Destroys `amount` tokens from `account`, deducting from the caller's
      * allowance.
@@ -706,6 +752,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Interface of the ERC165 standard, as defined in the
  * https:
@@ -727,6 +774,7 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title IERC1363 Interface
  * @author Vittorio Minacori (https:
@@ -741,6 +789,7 @@ interface IERC1363 is IERC20, IERC165 {
      * @return true unless throwing
      */
     function transferAndCall(address to, uint256 value) external returns (bool);
+
     /**
      * @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
      * @param to address The address which you want to transfer to
@@ -753,6 +802,7 @@ interface IERC1363 is IERC20, IERC165 {
         uint256 value,
         bytes calldata data
     ) external returns (bool);
+
     /**
      * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
      * @param from address The address which you want to send tokens from
@@ -765,6 +815,7 @@ interface IERC1363 is IERC20, IERC165 {
         address to,
         uint256 value
     ) external returns (bool);
+
     /**
      * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
      * @param from address The address which you want to send tokens from
@@ -779,6 +830,7 @@ interface IERC1363 is IERC20, IERC165 {
         uint256 value,
         bytes calldata data
     ) external returns (bool);
+
     /**
      * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
      * and then call `onApprovalReceived` on spender.
@@ -792,6 +844,7 @@ interface IERC1363 is IERC20, IERC165 {
     function approveAndCall(address spender, uint256 value)
         external
         returns (bool);
+
     /**
      * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
      * and then call `onApprovalReceived` on spender.
@@ -810,6 +863,7 @@ interface IERC1363 is IERC20, IERC165 {
     ) external returns (bool);
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title IERC1363Receiver Interface
  * @author Vittorio Minacori (https:
@@ -837,9 +891,10 @@ interface IERC1363Receiver {
         address from,
         uint256 value,
         bytes calldata data
-    ) external returns (bytes4); 
+    ) external returns (bytes4);
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title IERC1363Spender Interface
  * @author Vittorio Minacori (https:
@@ -868,6 +923,7 @@ interface IERC1363Spender {
     ) external returns (bytes4);
 }
 pragma solidity ^0.6.2;
+
 /**
  * @dev Library used to query support of an interface declared via {IERC165}.
  *
@@ -878,6 +934,7 @@ pragma solidity ^0.6.2;
 library ERC165Checker {
     bytes4 private constant _INTERFACE_ID_INVALID = 0xffffffff;
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
+
     /**
      * @dev Returns true if `account` supports the {IERC165} interface,
      */
@@ -886,6 +943,7 @@ library ERC165Checker {
             _supportsERC165Interface(account, _INTERFACE_ID_ERC165) &&
             !_supportsERC165Interface(account, _INTERFACE_ID_INVALID);
     }
+
     /**
      * @dev Returns true if `account` supports the interface defined by
      * `interfaceId`. Support for {IERC165} itself is queried automatically.
@@ -901,6 +959,7 @@ library ERC165Checker {
             supportsERC165(account) &&
             _supportsERC165Interface(account, interfaceId);
     }
+
     /**
      * @dev Returns true if `account` supports all the interfaces defined in
      * `interfaceIds`. Support for {IERC165} itself is queried automatically.
@@ -924,6 +983,7 @@ library ERC165Checker {
         }
         return true;
     }
+
     /**
      * @notice Query if a contract implements an interface, does not check ERC165 support
      * @param account The address of the contract to query for support of an interface
@@ -946,6 +1006,7 @@ library ERC165Checker {
         );
         return (success && result);
     }
+
     /**
      * @notice Calls the function with selector 0x01ffc9a7 (ERC165) and suppresses throw
      * @param account The address of the contract to query for support of an interface
@@ -971,6 +1032,7 @@ library ERC165Checker {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Implementation of the {IERC165} interface.
  *
@@ -983,9 +1045,11 @@ contract ERC165 is IERC165 {
      * @dev Mapping of interface ids to whether or not it's supported.
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
+
     constructor() internal {
         _registerInterface(_INTERFACE_ID_ERC165);
     }
+
     /**
      * @dev See {IERC165-supportsInterface}.
      *
@@ -999,6 +1063,7 @@ contract ERC165 is IERC165 {
     {
         return _supportedInterfaces[interfaceId];
     }
+
     /**
      * @dev Registers the contract as an implementer of the interface defined by
      * `interfaceId`. Support of the actual ERC165 interface is automatic and
@@ -1016,6 +1081,7 @@ contract ERC165 is IERC165 {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title ERC1363
  * @author Vittorio Minacori (https:
@@ -1027,6 +1093,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
     bytes4 internal constant _INTERFACE_ID_ERC1363_APPROVE = 0xfb9ec8ce;
     bytes4 private constant _ERC1363_RECEIVED = 0x88a7ca5c;
     bytes4 private constant _ERC1363_APPROVED = 0x7b04a2d0;
+
     /**
      * @param name Name of the token
      * @param symbol A symbol to be used as ticker
@@ -1039,6 +1106,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
         _registerInterface(_INTERFACE_ID_ERC1363_TRANSFER);
         _registerInterface(_INTERFACE_ID_ERC1363_APPROVE);
     }
+
     /**
      * @dev Transfer tokens to a specified address and then execute a callback on recipient.
      * @param to The address to transfer to.
@@ -1052,6 +1120,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
     {
         return transferAndCall(to, value, "");
     }
+
     /**
      * @dev Transfer tokens to a specified address and then execute a callback on recipient.
      * @param to The address to transfer to
@@ -1071,6 +1140,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
         );
         return true;
     }
+
     /**
      * @dev Transfer tokens from one address to another and then execute a callback on recipient.
      * @param from The address which you want to send tokens from
@@ -1085,6 +1155,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
     ) public override returns (bool) {
         return transferFromAndCall(from, to, value, "");
     }
+
     /**
      * @dev Transfer tokens from one address to another and then execute a callback on recipient.
      * @param from The address which you want to send tokens from
@@ -1106,6 +1177,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
         );
         return true;
     }
+
     /**
      * @dev Approve spender to transfer tokens and then execute a callback on recipient.
      * @param spender The address allowed to transfer to
@@ -1119,6 +1191,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
     {
         return approveAndCall(spender, value, "");
     }
+
     /**
      * @dev Approve spender to transfer tokens and then execute a callback on recipient.
      * @param spender The address allowed to transfer to.
@@ -1138,6 +1211,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
         );
         return true;
     }
+
     /**
      * @dev Internal function to invoke `onTransferReceived` on a target address
      *  The call is not executed if the target address is not a contract
@@ -1164,6 +1238,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
         );
         return (retval == _ERC1363_RECEIVED);
     }
+
     /**
      * @dev Internal function to invoke `onApprovalReceived` on a target address
      *  The call is not executed if the target address is not a contract
@@ -1189,6 +1264,7 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Contract module which provides a basic access control mechanism, where
  * there is an account (an owner) that can be granted exclusive access to
@@ -1207,6 +1283,7 @@ contract Ownable is Context {
         address indexed previousOwner,
         address indexed newOwner
     );
+
     /**
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
@@ -1215,12 +1292,14 @@ contract Ownable is Context {
         _owner = msgSender;
         emit OwnershipTransferred(address(0), msgSender);
     }
+
     /**
      * @dev Returns the address of the current owner.
      */
     function owner() public view returns (address) {
         return _owner;
     }
+
     /**
      * @dev Throws if called by any account other than the owner.
      */
@@ -1228,6 +1307,7 @@ contract Ownable is Context {
         require(_owner == _msgSender(), "Ownable: caller is not the owner");
         _;
     }
+
     /**
      * @dev Leaves the contract without owner. It will not be possible to call
      * `onlyOwner` functions anymore. Can only be called by the current owner.
@@ -1239,6 +1319,7 @@ contract Ownable is Context {
         emit OwnershipTransferred(_owner, address(0));
         _owner = address(0);
     }
+
     /**
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
      * Can only be called by the current owner.
@@ -1253,6 +1334,7 @@ contract Ownable is Context {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title TokenRecover
  * @author Vittorio Minacori (https:
@@ -1272,6 +1354,7 @@ contract TokenRecover is Ownable {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Library for managing
  * https:
@@ -1285,10 +1368,10 @@ pragma solidity ^0.6.9;
  *
  * ```
  * contract Example {
- *     
+ *
  *     using EnumerableSet for EnumerableSet.AddressSet;
  *
- *     
+ *
  *     EnumerableSet.AddressSet private mySet;
  * }
  * ```
@@ -1301,6 +1384,7 @@ library EnumerableSet {
         bytes32[] _values;
         mapping(bytes32 => uint256) _indexes;
     }
+
     /**
      * @dev Add a value to a set. O(1).
      *
@@ -1316,6 +1400,7 @@ library EnumerableSet {
             return false;
         }
     }
+
     /**
      * @dev Removes a value from a set. O(1).
      *
@@ -1329,7 +1414,7 @@ library EnumerableSet {
             uint256 lastIndex = set._values.length - 1;
             bytes32 lastvalue = set._values[lastIndex];
             set._values[toDeleteIndex] = lastvalue;
-            set._indexes[lastvalue] = toDeleteIndex + 1; 
+            set._indexes[lastvalue] = toDeleteIndex + 1;
             set._values.pop();
             delete set._indexes[value];
             return true;
@@ -1337,6 +1422,7 @@ library EnumerableSet {
             return false;
         }
     }
+
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
@@ -1347,12 +1433,14 @@ library EnumerableSet {
     {
         return set._indexes[value] != 0;
     }
+
     /**
      * @dev Returns the number of values on the set. O(1).
      */
     function _length(Set storage set) private view returns (uint256) {
         return set._values.length;
     }
+
     /**
      * @dev Returns the value stored at position `index` in the set. O(1).
      *
@@ -1374,9 +1462,11 @@ library EnumerableSet {
         );
         return set._values[index];
     }
+
     struct AddressSet {
         Set _inner;
     }
+
     /**
      * @dev Add a value to a set. O(1).
      *
@@ -1389,6 +1479,7 @@ library EnumerableSet {
     {
         return _add(set._inner, bytes32(uint256(value)));
     }
+
     /**
      * @dev Removes a value from a set. O(1).
      *
@@ -1401,6 +1492,7 @@ library EnumerableSet {
     {
         return _remove(set._inner, bytes32(uint256(value)));
     }
+
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
@@ -1411,12 +1503,14 @@ library EnumerableSet {
     {
         return _contains(set._inner, bytes32(uint256(value)));
     }
+
     /**
      * @dev Returns the number of values in the set. O(1).
      */
     function length(AddressSet storage set) internal view returns (uint256) {
         return _length(set._inner);
     }
+
     /**
      * @dev Returns the value stored at position `index` in the set. O(1).
      *
@@ -1434,9 +1528,11 @@ library EnumerableSet {
     {
         return address(uint256(_at(set._inner, index)));
     }
+
     struct UintSet {
         Set _inner;
     }
+
     /**
      * @dev Add a value to a set. O(1).
      *
@@ -1446,6 +1542,7 @@ library EnumerableSet {
     function add(UintSet storage set, uint256 value) internal returns (bool) {
         return _add(set._inner, bytes32(value));
     }
+
     /**
      * @dev Removes a value from a set. O(1).
      *
@@ -1458,6 +1555,7 @@ library EnumerableSet {
     {
         return _remove(set._inner, bytes32(value));
     }
+
     /**
      * @dev Returns true if the value is in the set. O(1).
      */
@@ -1468,12 +1566,14 @@ library EnumerableSet {
     {
         return _contains(set._inner, bytes32(value));
     }
+
     /**
      * @dev Returns the number of values on the set. O(1).
      */
     function length(UintSet storage set) internal view returns (uint256) {
         return _length(set._inner);
     }
+
     /**
      * @dev Returns the value stored at position `index` in the set. O(1).
      *
@@ -1493,6 +1593,7 @@ library EnumerableSet {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @dev Contract module that allows children to implement role-based access
  * control mechanisms.
@@ -1556,12 +1657,14 @@ abstract contract AccessControl is Context {
         address indexed account,
         address indexed sender
     );
+
     /**
      * @dev Returns `true` if `account` has been granted `role`.
      */
     function hasRole(bytes32 role, address account) public view returns (bool) {
         return _roles[role].members.contains(account);
     }
+
     /**
      * @dev Returns the number of accounts that have `role`. Can be used
      * together with {getRoleMember} to enumerate all bearers of a role.
@@ -1569,6 +1672,7 @@ abstract contract AccessControl is Context {
     function getRoleMemberCount(bytes32 role) public view returns (uint256) {
         return _roles[role].members.length();
     }
+
     /**
      * @dev Returns one of the accounts that have `role`. `index` must be a
      * value between 0 and {getRoleMemberCount}, non-inclusive.
@@ -1588,6 +1692,7 @@ abstract contract AccessControl is Context {
     {
         return _roles[role].members.at(index);
     }
+
     /**
      * @dev Returns the admin role that controls `role`. See {grantRole} and
      * {revokeRole}.
@@ -1597,6 +1702,7 @@ abstract contract AccessControl is Context {
     function getRoleAdmin(bytes32 role) public view returns (bytes32) {
         return _roles[role].adminRole;
     }
+
     /**
      * @dev Grants `role` to `account`.
      *
@@ -1614,6 +1720,7 @@ abstract contract AccessControl is Context {
         );
         _grantRole(role, account);
     }
+
     /**
      * @dev Revokes `role` from `account`.
      *
@@ -1630,6 +1737,7 @@ abstract contract AccessControl is Context {
         );
         _revokeRole(role, account);
     }
+
     /**
      * @dev Revokes `role` from the calling account.
      *
@@ -1651,6 +1759,7 @@ abstract contract AccessControl is Context {
         );
         _revokeRole(role, account);
     }
+
     /**
      * @dev Grants `role` to `account`.
      *
@@ -1670,17 +1779,20 @@ abstract contract AccessControl is Context {
     function _setupRole(bytes32 role, address account) internal virtual {
         _grantRole(role, account);
     }
+
     /**
      * @dev Sets `adminRole` as ``role``'s admin role.
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
         _roles[role].adminRole = adminRole;
     }
+
     function _grantRole(bytes32 role, address account) private {
         if (_roles[role].members.add(account)) {
             emit RoleGranted(role, account, _msgSender());
         }
     }
+
     function _revokeRole(bytes32 role, address account) private {
         if (_roles[role].members.remove(account)) {
             emit RoleRevoked(role, account, _msgSender());
@@ -1688,14 +1800,17 @@ abstract contract AccessControl is Context {
     }
 }
 pragma solidity ^0.6.9;
+
 contract Roles is AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER");
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR");
+
     constructor() public {
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(OPERATOR_ROLE, _msgSender());
     }
+
     modifier onlyMinter() {
         require(
             hasRole(MINTER_ROLE, _msgSender()),
@@ -1712,6 +1827,7 @@ contract Roles is AccessControl {
     }
 }
 pragma solidity ^0.6.9;
+
 /**
  * @title BaseToken
  * @author Vittorio Minacori (https:
@@ -1726,8 +1842,7 @@ contract ERC20Generator is
 {
     bool private _mintingFinished = false;
     bool private _transferEnabled = false;
-    string
-        public constant BUILT_ON = "https:
+    string public constant BUILT_ON = "https:";
     /**
      * @dev Emitted during finish minting
      */
@@ -1753,6 +1868,7 @@ contract ERC20Generator is
         );
         _;
     }
+
     /**
      * @param name Name of the token
      * @param symbol A symbol to be used as ticker
@@ -1786,18 +1902,21 @@ contract ERC20Generator is
             enableTransfer();
         }
     }
+
     /**
      * @return if minting is finished or not.
      */
     function mintingFinished() public view returns (bool) {
         return _mintingFinished;
     }
+
     /**
      * @return if transfer is enabled or not.
      */
     function transferEnabled() public view returns (bool) {
         return _transferEnabled;
     }
+
     /**
      * @dev Function to mint tokens.
      * @param to The address that will receive the minted tokens
@@ -1806,6 +1925,7 @@ contract ERC20Generator is
     function mint(address to, uint256 value) public canMint onlyMinter {
         _mint(to, value);
     }
+
     /**
      * @dev Transfer tokens to a specified address.
      * @param to The address to transfer to
@@ -1821,6 +1941,7 @@ contract ERC20Generator is
     {
         return super.transfer(to, value);
     }
+
     /**
      * @dev Transfer tokens from one address to another.
      * @param from The address which you want to send tokens from
@@ -1835,6 +1956,7 @@ contract ERC20Generator is
     ) public virtual override(ERC20) canTransfer(from) returns (bool) {
         return super.transferFrom(from, to, value);
     }
+
     /**
      * @dev Function to stop minting new tokens.
      */
@@ -1842,6 +1964,7 @@ contract ERC20Generator is
         _mintingFinished = true;
         emit MintFinished();
     }
+
     /**
      * @dev Function to enable transfers.
      */
@@ -1849,6 +1972,7 @@ contract ERC20Generator is
         _transferEnabled = true;
         emit TransferEnabled();
     }
+
     /**
      * @dev See {ERC20-_beforeTokenTransfer}.
      */
